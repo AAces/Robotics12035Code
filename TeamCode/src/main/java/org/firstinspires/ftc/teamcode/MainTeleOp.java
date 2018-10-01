@@ -51,7 +51,7 @@ import com.qualcomm.robotcore.util.Range;
  */
 
 @TeleOp(name="MainTeleOp", group="TeleOp")
-@Disabled
+//@Disabled
 public class MainTeleOp extends OpMode
 {
     // Declare OpMode members.
