@@ -121,7 +121,19 @@ public class MainTeleOp extends OpMode
             robot.rightBackDrive.setPower(rightPower);
         }
 
-
+        //GamePad 2: Robot
+        if(gamepad2.a){
+            robot.leftHold.setPosition(Hardware.HOLD_CLOSED);
+            robot.rightHold.setPosition(Hardware.HOLD_CLOSED);
+        } else if(gamepad2.b){
+            robot.leftHold.setPosition(Hardware.HOLD_OPEN);
+            robot.rightHold.setPosition(Hardware.HOLD_OPEN);
+        }
+        if(gamepad2.y){
+            robot.flipper.setPosition(Hardware.FLIPPED_UP);
+        } else if(gamepad2.x){
+            robot.flipper.setPosition(Hardware.FLIPPED_DOWN);
+        }
 
 
         // Show the elapsed game time and wheel power.
