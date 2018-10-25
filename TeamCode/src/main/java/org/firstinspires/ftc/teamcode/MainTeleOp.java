@@ -100,6 +100,9 @@ public class MainTeleOp extends OpMode
         double leftPower = 0.0;
         double rightPower = 0.0;
         double sidewaysPower = 0.0;
+        double liftPower = 0.0;
+        double cargoLiftPower = 0.0;
+        double spinnyPower = 0.0;
 
         //GamePad 1: Driving
         if(gamepad1.right_stick_y == 0 && gamepad1.left_stick_y == 0){
@@ -122,27 +125,29 @@ public class MainTeleOp extends OpMode
         }
 
         //GamePad 2: Robot
-        if(gamepad2.a){
-            robot.leftHold.setPosition(Hardware.HOLD_CLOSED);
-            robot.rightHold.setPosition(Hardware.HOLD_CLOSED);
-        } else if(gamepad2.b){
-            robot.leftHold.setPosition(Hardware.HOLD_OPEN);
-            robot.rightHold.setPosition(Hardware.HOLD_OPEN);
-        }
-        if(gamepad2.y){
-            robot.flipper.setPosition(Hardware.FLIPPED_UP);
-        } else if(gamepad2.x){
-            robot.flipper.setPosition(Hardware.FLIPPED_DOWN);
-        }
+        liftPower = gamepad2.right_stick_y/2;
+        cargoLiftPower = gamepad2.left_stick_y/2;
+        robot.cargoLift.setPower(cargoLiftPower);
+        robot.lift1.setPower(liftPower);
+        robot.lift2.setPower(liftPower);
 
+        if(gamepad2.right_trigger != 0 && gamepad2.left_trigger == 0){
+            spinnyPower = gamepad2.right_trigger/3;
+        } else if (gamepad2.right_trigger == 0 && gamepad2.left_trigger != 0){
+            spinnyPower = -gamepad2.right_trigger/3;
+        }
+        robot.spinnyThing.setPower(spinnyPower);
 
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         if(sidewaysPower == 0.0) {
-            telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
+            telemetry.addData("Wheels", "left (%.2f), right (%.2f)", leftPower, rightPower);
         } else {
-            telemetry.addData("Motors", "front (%.2f), back (%.2f)", sidewaysPower, -sidewaysPower);
+            telemetry.addData("Wheels", "front (%.2f), back (%.2f)", sidewaysPower, -sidewaysPower);
         }
+        telemetry.addLine("Lift: " + liftPower);
+        telemetry.addLine("Cargo Lift: " + cargoLiftPower);
+        telemetry.addLine("Spinny Thing: " + spinnyPower);
     }
 
     /*

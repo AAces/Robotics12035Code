@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class Hardware {
@@ -11,20 +10,13 @@ public class Hardware {
     public DcMotor rightFrontDrive = null;
     public DcMotor leftBackDrive = null;
     public DcMotor rightBackDrive = null;
+    public DcMotor spinnyThing = null;
 
     public DcMotor lift1 = null;
     public DcMotor lift2 = null;
-    public DcMotor lift3 = null;
+    public DcMotor cargoLift = null;
 
     private boolean auto = false;
-    public Servo leftHold = null;
-    public Servo rightHold = null;
-    public Servo flipper = null;
-
-    public static final double HOLD_OPEN = 0.0;
-    public static final double HOLD_CLOSED = 0.45;
-    public static final double FLIPPED_DOWN = -0.45;
-    public static final double FLIPPED_UP = -0.45;
 
     /* local OpMode members. */
     private HardwareMap hwMap = null;
@@ -47,7 +39,9 @@ public class Hardware {
         rightBackDrive = hwMap.get(DcMotor.class, "right_back");
         lift1 = hwMap.get(DcMotor.class, "lift1");
         lift2 = hwMap.get(DcMotor.class, "lift2");
-        lift3 = hwMap.get(DcMotor.class, "lift3");
+        cargoLift = hwMap.get(DcMotor.class, "cargo_lift");
+        spinnyThing = hwMap.get(DcMotor.class, "spinny_thing");
+
 
         leftFrontDrive.setDirection(DcMotorSimple.Direction.FORWARD);
         leftBackDrive.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -59,7 +53,10 @@ public class Hardware {
         rightFrontDrive.setPower(0);
         leftFrontDrive.setPower(0);
         leftBackDrive.setPower(0);
-
+        lift1.setPower(0);
+        lift2.setPower(0);
+        cargoLift.setPower(0);
+        spinnyThing.setPower(0);
 
         if (auto) {
             leftFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -73,14 +70,6 @@ public class Hardware {
             rightBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
 
-
-        // Define and initialize ALL installed servos.
-        leftHold = hwMap.get(Servo.class, "left_hold");
-        rightHold = hwMap.get(Servo.class, "right_hold");
-        flipper = hwMap.get(Servo.class, "flipper");
-        leftHold.setPosition(HOLD_CLOSED);
-        rightHold.setPosition(HOLD_CLOSED);
-        flipper.setPosition(FLIPPED_DOWN);
     }
 
 
