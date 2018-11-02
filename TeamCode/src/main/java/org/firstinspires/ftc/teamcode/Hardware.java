@@ -10,6 +10,7 @@ public class Hardware {
     public DcMotor rightFrontDrive = null;
     public DcMotor leftBackDrive = null;
     public DcMotor rightBackDrive = null;
+
     public DcMotor spinnyThing = null;
 
     public DcMotor lift1 = null;
